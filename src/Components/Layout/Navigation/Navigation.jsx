@@ -6,12 +6,26 @@ import Registration from "../Registration/Registration";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SignIn from "../Registration/SignIn/SignIn";
 import SignUp from "../Registration/SignUp/SignUp";
-const Navigation = ({ userExist, setUserExist }) => {
-  console.log("From Navigation Exist::", userExist);
+const Navigation = ({
+  userExist,
+  setUserExist,
+  userData,
+  setUserData,
+  isAdmin,
+  setIsAdmin,
+}) => {
   return (
     <Routes>
       {userExist ? (
-        <Route path="/signin" element={<Navigate replace to="/home" />} />
+        <Route
+          path="/signin"
+          element={
+            <Navigate
+              replace
+              to={isAdmin ? "/home" : `/home/${userData[0]?.id}`}
+            />
+          }
+        />
       ) : (
         <Route path="/" element={<Navigate replace to="/signin" />} />
       )}
@@ -19,14 +33,27 @@ const Navigation = ({ userExist, setUserExist }) => {
         exact
         path="/"
         element={
-          <Registration userExist={userExist} setUserExist={setUserExist} />
+          <Registration
+            userExist={userExist}
+            setUserExist={setUserExist}
+            setUserData={setUserData}
+            setIsAdmin={setIsAdmin}
+          />
         }
       >
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/signup" element={<SignUp />} />
       </Route>
-      <Route exact path="/home" element={<Home />} />
-      <Route exact path="/course" element={<Course />} />
+      <Route
+        exact
+        path={isAdmin ? "/home" : `/home/${userData[0]?.id}`}
+        element={<Home />}
+      />
+      <Route
+        exact
+        path={isAdmin ? "/course" : `/course/${userData[0]?.id}`}
+        element={<Course />}
+      />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

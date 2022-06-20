@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
-const Registration = ({ userExist, setUserExist }) => {
+const Registration = ({ userExist, setUserExist, setUserData, setIsAdmin }) => {
   const [layout, setLayout] = useState(false);
   return (
     <>
@@ -33,7 +33,12 @@ const Registration = ({ userExist, setUserExist }) => {
                   </Link>
                 </div>
                 {!layout && (
-                  <SignIn userExist={userExist} setUserExist={setUserExist} />
+                  <SignIn
+                    userExist={userExist}
+                    setUserExist={setUserExist}
+                    setUserData={setUserData}
+                    setIsAdmin={setIsAdmin}
+                  />
                 )}
                 {layout && <SignUp />}
               </div>

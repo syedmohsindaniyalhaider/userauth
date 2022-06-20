@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Form from "../SignInForm/Form";
 import styles from "./style.module.css";
-const Http = ({ userExist, setUserExist }) => {
+const Http = ({ userExist, setUserExist, setUserData, setIsAdmin }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [signInEmail, setSignInEmail] = useState("");
@@ -22,16 +22,21 @@ const Http = ({ userExist, setUserExist }) => {
       for (const key in data) {
         loadedUsers.push({
           id: key,
+          firstName: data[key]?.firstName,
           email: data[key]?.email,
           password: data[key]?.password,
+          roles: data[key]?.roles,
         });
       }
       const matchUser = loadedUsers.filter(
         (user) => user.email === signInEmail && user.password === signInPassword
       );
-      const boolUserMatch = matchUser.length > 0 ? true : false;
-      console.log("Users", loadedUsers);
+      const isAdmin = matchUser[0].roles[0] === "admin" ? true : false;
+      const boolUserMatch =
+        matchUser.length > 0 && matchUser.length < 2 ? true : false;
       setUserExist(boolUserMatch);
+      setUserData(matchUser);
+      setIsAdmin(isAdmin);
     } catch (err) {
       setError(err.message);
     }
