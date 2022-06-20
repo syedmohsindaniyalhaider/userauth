@@ -1,0 +1,22 @@
+/* background-color: rgb(105, 161, 218); */
+.submit {
+  background-color: #0a66c2;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none !important;
+}
+
+.submit:hover {
+  cursor: pointer;
+}
+
+.disable-submit {
+  background-color: rgb(105, 161, 218);
+  color: white;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none !important;
+}
