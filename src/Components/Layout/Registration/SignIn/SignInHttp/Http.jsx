@@ -31,9 +31,8 @@ const Http = ({ userExist, setUserExist, setUserData, setIsAdmin }) => {
       const matchUser = loadedUsers.filter(
         (user) => user.email === signInEmail && user.password === signInPassword
       );
-      const isAdmin = matchUser[0].roles[0] === "admin" ? true : false;
-      const boolUserMatch =
-        matchUser.length > 0 && matchUser.length < 2 ? true : false;
+      const isAdmin = matchUser[0]?.roles[0] === "admin" ? true : false;
+      const boolUserMatch = matchUser.length > 0 ? true : false;
       setUserExist(boolUserMatch);
       setUserData(matchUser);
       setIsAdmin(isAdmin);

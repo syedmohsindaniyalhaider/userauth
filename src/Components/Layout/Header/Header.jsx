@@ -14,14 +14,28 @@ const Header = ({ setUserExist, userData, isAdmin }) => {
               Home
             </Link>
           </li>
-          <li>
-            <Link
-              className={styles.items}
-              to={isAdmin ? "/course" : `/course/${userData[0]?.id}`}
-            >
-              Course
-            </Link>
-          </li>
+          {isAdmin ? (
+            ""
+          ) : (
+            <>
+              <li>
+                <Link
+                  className={styles.items}
+                  to={`/course/${userData[0]?.id}`}
+                >
+                  Course
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={styles.items}
+                  to={`/green-pass/${userData[0]?.id}`}
+                >
+                  Green Pass
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
         <Link
           to="/"

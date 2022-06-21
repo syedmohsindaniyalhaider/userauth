@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../../Home/Home";
 import Course from "../../Course/Course";
@@ -6,6 +6,7 @@ import Registration from "../Registration/Registration";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SignIn from "../Registration/SignIn/SignIn";
 import SignUp from "../Registration/SignUp/SignUp";
+import GreenPass from "../../GreenPass/GreenPass";
 const Navigation = ({
   userExist,
   setUserExist,
@@ -47,12 +48,17 @@ const Navigation = ({
       <Route
         exact
         path={isAdmin ? "/home" : `/home/${userData[0]?.id}`}
-        element={<Home />}
+        element={<Home isAdmin={isAdmin} userData={userData} />}
       />
       <Route
         exact
         path={isAdmin ? "/course" : `/course/${userData[0]?.id}`}
-        element={<Course />}
+        element={<Course userData={userData} />}
+      />
+      <Route
+        exact
+        path={isAdmin ? "/green-pass" : `/green-pass/${userData[0]?.id}`}
+        element={<GreenPass userData={userData} />}
       />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

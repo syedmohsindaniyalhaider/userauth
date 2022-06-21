@@ -1,0 +1,50 @@
+.grid {
+  padding: auto;
+}
+.block {
+  background-color: white;
+  width: 50%;
+  padding: 30px 30px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(224, 223, 220);
+}
+
+.give {
+  background-color: transparent;
+  padding: 8px 20px;
+  margin-top: 10px;
+  border-radius: 50px;
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+}
+.cancel {
+  margin-left: 10px;
+  background-color: transparent;
+  padding: 8px 20px;
+  margin-top: 10px;
+  border-radius: 50px;
+  border: 1px solid red;
+  color: red;
+}
+.cancel:hover {
+  cursor: pointer;
+}
+.give:hover {
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px 15px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

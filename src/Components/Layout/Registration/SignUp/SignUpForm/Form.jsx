@@ -1,7 +1,16 @@
 import Input from "../../../../../UI/Input/Input";
 import useInput from "../../../../../Hooks/use-input";
 import styles from "./style.module.css";
-const Form = (props) => {
+import { useContext, useEffect } from "react";
+
+const Form = ({
+  setSignUpEmail,
+  setSignUpPassword,
+  userAlreadyExist,
+  checkUser,
+  loading,
+  error,
+}) => {
   const {
     value: firstName,
     hasError: firstNameHasError,
@@ -50,6 +59,8 @@ const Form = (props) => {
     passwordIsValid &&
     confirmPasswordIsValid;
 
+  let passwordMatch = password === confirmPassword;
+
   let userDetails = {
     firstName: firstName,
     lastName: lastName,
@@ -59,9 +70,11 @@ const Form = (props) => {
     roles: ["user"],
   };
 
+  useEffect(() => {}, [userAlreadyExist]);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    props.onAddUser(userDetails);
+    checkUser(userDetails);
     resetFirstName();
     resetLastName();
     resetEmail();
@@ -91,7 +104,10 @@ const Form = (props) => {
         label="Email"
         name="email"
         value={email}
-        onChange={emailChangeHandler}
+        onChange={(e) => {
+          emailChangeHandler(e);
+          setSignUpEmail(e.target.value);
+        }}
         onBlur={emailBlurHandler}
         error={emailHasError ? "* Enter a valid email" : ""}
       />
@@ -100,7 +116,10 @@ const Form = (props) => {
         name="password"
         value={password}
         type="password"
-        onChange={passwordChangeHandler}
+        onChange={(e) => {
+          passwordChangeHandler(e);
+          setSignUpPassword(e.target.value);
+        }}
         onBlur={passwordBlurHandler}
         error={passwordHasError ? "* Enter a valid password" : ""}
       />
@@ -115,11 +134,18 @@ const Form = (props) => {
         error={confirmPasswordHasError ? "* Enter a valid password" : ""}
       />
       <button
-        disabled={!formIsValid}
-        className={!formIsValid ? styles["disable-submit"] : styles.submit}
+        disabled={!formIsValid || !passwordMatch}
+        className={
+          !formIsValid || !passwordMatch
+            ? styles["disable-submit"]
+            : styles.submit
+        }
       >
         Sign Up
       </button>
+      {passwordMatch ? "" : <p>Password does not match</p>}
+      {loading && !userAlreadyExist && <p>Loading...</p>}
+      {userAlreadyExist && <p>User already exists</p>}
     </form>
   );
 };
