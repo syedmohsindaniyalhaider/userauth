@@ -3,6 +3,8 @@ import useInput from "../../../../../Hooks/use-input";
 import styles from "./style.module.css";
 import { useContext, useEffect } from "react";
 
+// some changes
+
 const Form = ({
   setSignUpEmail,
   setSignUpPassword,
